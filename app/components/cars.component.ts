@@ -5,7 +5,7 @@ import {CarService} from "../services/car.service";
 @Component({
     moduleId : module.id,
     selector: 'cars',
-    templateUrl : '../templates/cars.template.html'
+    templateUrl : '../templates/cars.component.html'
 })
 
 export class CarsComponent implements OnInit {
