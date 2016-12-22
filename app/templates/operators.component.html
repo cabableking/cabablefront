@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Operators</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>City</th>
+            <th>Country</th>
+            <th>Website</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let operator of operators">
+            <td>{{operator.email}}</td>
+            <td>{{operator.phoneNumber}}</td>
+            <td>{{operator.city}}</td>
+            <td>{{operator.country}}</td>
+            <td>{{operator.website}}</td>
+            <td>
+                <!--<a class="btn btn-default" [routerLink]="['/operator/view']">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/operator/edit']">Edit</a>-->
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<button class="btn btn-primary" (click)="goBack()">Back</button>

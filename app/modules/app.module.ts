@@ -11,6 +11,10 @@ import {AuthenticationService} from "../services/authentication.service";
 import {FormsModule} from "@angular/forms";
 import {NavbarComponent} from "../components/navbar.component";
 import {EventEmitterService} from "../services/event-emitter.service";
+import {CreateOperatorComponent} from "../components/create-operator.component";
+import {OperatorService} from "../services/operator.service";
+import {OperatorsComponent} from "../components/operators.component";
+import {OperatorHomeComponent} from "../components/operator-home.component";
 
 
 @NgModule({
@@ -20,8 +24,8 @@ import {EventEmitterService} from "../services/event-emitter.service";
         FormsModule
     ],
     declarations : [AppComponent, CarDetailComponent, CarsComponent,
-        HomeComponent,LoginComponent,NavbarComponent],
-    providers : [CarService,AuthenticationService, EventEmitterService],
+        HomeComponent,LoginComponent,NavbarComponent,CreateOperatorComponent, OperatorsComponent, OperatorHomeComponent],
+    providers : [CarService,AuthenticationService, EventEmitterService,OperatorService],
     bootstrap : [AppComponent]
 })
 

@@ -6,9 +6,17 @@ import {AuthenticationService} from '../services/authentication.service';
     template: `
             
             <h2>Dashboard</h2>
-            <h3>Welcome to the operator dashboard!</h3>
-            <a (click)="logout()" href="#">Click Here to logout</a>
-           
+            <h3>Welcome to the SuperAdmin dashboard!</h3>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Actions</h3>
+              </div>
+              <div class="panel-body">               
+                    <a class="btn btn-primary" routerLink="/operator/create">Create Operator</a>
+                    <a class="btn btn-primary" routerLink="/operator/list">View All Operators</a>
+                    <a class="btn btn-primary" (click)="logout()" href="#">logout</a>
+              </div>
+            </div>  
     	`
 })
 
@@ -23,5 +31,6 @@ export class HomeComponent implements OnInit{
 
     logout() {
         this._service.logout();
+        return false;
     }
 }
