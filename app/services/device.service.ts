@@ -8,6 +8,11 @@ export class DeviceService{
         imei : '74664738837738',
         model : 'Samsung Galaxy champ',
         isAssigned : false
+    },{
+        id : Math.ceil(Math.random()*1000),
+        imei : '5746473847332',
+        model : 'Micromax canvas Duo',
+        isAssigned : false
     }];
     getDevices(){
         return this.devices;

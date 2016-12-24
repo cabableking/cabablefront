@@ -19,6 +19,21 @@ export class CarService{
         hasAC : true,
         isAssigned : true,
         statesPermitMap : 4
+    },{
+        id : Math.ceil(Math.random()*1000),
+        registrationNumber : 'KA08 HX4578',
+        model : 'Benz',
+        associatedDeviceId : 6,
+        associatedDriverId : 3,
+        capacity : 4,
+        year : 2009,
+        color : 'blue',
+        category : 'Sedan',
+        operatorId : 1,
+        make : '2008',
+        hasAC : true,
+        isAssigned : true,
+        statesPermitMap : 4
     }];
     getCars(){
         //return Promise.resolve(CARS);

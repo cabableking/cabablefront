@@ -9,6 +9,12 @@ export class DriverService{
         address : 'HBR Layout, Bangalore',
         licenceNumber : 'DSI4638303',
         isAssigned : false
+    },{
+        id : Math.ceil(Math.random()*1000),
+        name : 'Ajay Singh',
+        address : 'HBR Layout, Bangalore',
+        licenceNumber : 'DSI4638494',
+        isAssigned : false
     }];
     getDrivers(){
         return this.drivers;

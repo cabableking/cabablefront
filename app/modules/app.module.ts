@@ -25,6 +25,12 @@ import {DriverDetailComponent} from "../components/driver-detail.component";
 import {DriversComponent} from "../components/drivers.component";
 import {CreateDriverComponent} from "../components/create-driver.component";
 import {DriverService} from "../services/driver.service";
+import {OnboardingStartComponent} from "../components/onboarding-start.component";
+import {OnboardingService} from "../services/onboarding.service";
+import {OnboardingCarComponent} from "../components/onboarding-car.component";
+import {OnboardingDeviceComponent} from "../components/onboarding-device.component";
+import {OnboardingDriverComponent} from "../components/onboarding-driver.component";
+import {OnboardingFinishComponent} from "../components/onboarding-finish.component";
 
 
 @NgModule({
@@ -38,8 +44,11 @@ import {DriverService} from "../services/driver.service";
         CreateOperatorComponent, OperatorsComponent, OperatorHomeComponent,
         DeviceDetailComponent, DevicesComponent,CreateDeviceComponent,
         DriverDetailComponent, DriversComponent,CreateDriverComponent,
+        OnboardingStartComponent,OnboardingCarComponent, OnboardingDeviceComponent, OnboardingDriverComponent,
+        OnboardingFinishComponent,
         BackButtonComponent],
-    providers : [CarService,AuthenticationService, EventEmitterService,OperatorService,DeviceService, DriverService],
+    providers : [CarService,AuthenticationService, EventEmitterService,OperatorService,DeviceService, DriverService,
+        OnboardingService],
     bootstrap : [AppComponent]
 })
 

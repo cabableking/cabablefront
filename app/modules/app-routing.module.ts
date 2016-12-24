@@ -14,6 +14,11 @@ import {DeviceDetailComponent} from "../components/device-detail.component";
 import {CreateDriverComponent} from "../components/create-driver.component";
 import {DriversComponent} from "../components/drivers.component";
 import {DriverDetailComponent} from "../components/driver-detail.component";
+import {OnboardingStartComponent} from "../components/onboarding-start.component";
+import {OnboardingCarComponent} from "../components/onboarding-car.component";
+import {OnboardingDeviceComponent} from "../components/onboarding-device.component";
+import {OnboardingDriverComponent} from "../components/onboarding-driver.component";
+import {OnboardingFinishComponent} from "../components/onboarding-finish.component";
 
 const routes : Routes = [
     {path : 'home', component : HomeComponent},
@@ -35,7 +40,12 @@ const routes : Routes = [
     {path : 'operator/create', component : CreateOperatorComponent},
     {path : 'operator/list', component : OperatorsComponent},
     {path : 'operator/login', component : LoginComponent},
-    {path : 'operator/home', component : OperatorHomeComponent}
+    {path : 'operator/home', component : OperatorHomeComponent},
+    {path : 'onboarding/start', component : OnboardingStartComponent},
+    {path : 'onboarding/car/:id', component : OnboardingCarComponent},
+    {path : 'onboarding/device/:id', component : OnboardingDeviceComponent},
+    {path : 'onboarding/driver/:id', component : OnboardingDriverComponent}
+    {path : 'onboarding/finish', component : OnboardingFinishComponent}
 ];
 
 @NgModule({
