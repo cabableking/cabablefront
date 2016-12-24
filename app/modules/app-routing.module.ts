@@ -44,7 +44,7 @@ const routes : Routes = [
     {path : 'onboarding/start', component : OnboardingStartComponent},
     {path : 'onboarding/car/:id', component : OnboardingCarComponent},
     {path : 'onboarding/device/:id', component : OnboardingDeviceComponent},
-    {path : 'onboarding/driver/:id', component : OnboardingDriverComponent}
+    {path : 'onboarding/driver/:id', component : OnboardingDriverComponent},
     {path : 'onboarding/finish', component : OnboardingFinishComponent}
 ];
 
