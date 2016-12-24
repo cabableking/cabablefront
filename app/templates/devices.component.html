@@ -1,0 +1,28 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Devices</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>IMEI</th>
+            <th>Model</th>
+            <th>Assigned</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let device of devices">
+            <td>{{device.id}}</td>
+            <td>{{device.imei}}</td>
+            <td>{{device.model}}</td>
+            <td>{{device.isAssigned}}</td>
+            <td>
+                <a class="btn btn-default" [routerLink]="['/device/view',device.id]">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/device/edit', device.id]">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<back-button></back-button>

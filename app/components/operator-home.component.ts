@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
               <div class="panel-body">               
                     <div class="col-xs-12">
                         <a class="btn btn-primary" routerLink="/car/create">Create Car</a>
-                        <a class="btn btn-primary" routerLink="/cars">View All Cars</a>
+                        <a class="btn btn-primary" routerLink="/car/list">View All Cars</a>
                     </div>
                     <div class="col-xs-12">
                         <a class="btn btn-primary" routerLink="/device/create">Create Device</a>

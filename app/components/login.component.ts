@@ -14,8 +14,8 @@ import {Router} from "@angular/router";
             </div>
             <div style="margin-bottom: 30px">
               <span>Login As :</span>
-              <label class="radio-inline"><input type="radio" name="loginAs" value="sa" checked (click)="setUserRole($event)">SuperAdmin</label>
-              <label class="radio-inline"><input type="radio" name="loginAs" value="op" (click)="setUserRole($event)">Operator</label>
+              <label class="radio-inline"><input #superAdmin type="radio" name="loginAs" value="sa" checked (click)="setUserRole($event)">SuperAdmin</label>
+              <label class="radio-inline"><input #operator type="radio" name="loginAs" value="op" (click)="setUserRole($event)">Operator</label>
             </div>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -64,8 +64,9 @@ export class LoginComponent {
         }
         return false;
     }
-    setUserRole(event:Event){
-        if(event.target.value == 'sa'){
+    setUserRole(event){
+        var target = event.target || event.srcElement || event.currentTarget;
+        if(target.value == 'sa'){
             this.userRole = 'SuperAdmin';
         }else{
             this.userRole = 'Operator';

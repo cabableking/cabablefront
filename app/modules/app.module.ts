@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {AppComponent} from '../components/app.component';
-import {CarDetailComponent} from '../components/car-detail.component'
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
+import {AppComponent} from "../components/app.component";
+import {CarDetailComponent} from "../components/car-detail.component";
 import {CarsComponent} from "../components/cars.component";
 import {CarService} from "../services/car.service";
 import {AppRoutingModule} from "./app-routing.module";
@@ -15,6 +15,16 @@ import {CreateOperatorComponent} from "../components/create-operator.component";
 import {OperatorService} from "../services/operator.service";
 import {OperatorsComponent} from "../components/operators.component";
 import {OperatorHomeComponent} from "../components/operator-home.component";
+import {CreateCarComponent} from "../components/create-car.component";
+import {BackButtonComponent} from "../components/back-button.component";
+import {DeviceDetailComponent} from "../components/device-detail.component";
+import {DevicesComponent} from "../components/devices.component";
+import {CreateDeviceComponent} from "../components/create-device.component";
+import {DeviceService} from "../services/device.service";
+import {DriverDetailComponent} from "../components/driver-detail.component";
+import {DriversComponent} from "../components/drivers.component";
+import {CreateDriverComponent} from "../components/create-driver.component";
+import {DriverService} from "../services/driver.service";
 
 
 @NgModule({
@@ -23,9 +33,13 @@ import {OperatorHomeComponent} from "../components/operator-home.component";
         AppRoutingModule,
         FormsModule
     ],
-    declarations : [AppComponent, CarDetailComponent, CarsComponent,
-        HomeComponent,LoginComponent,NavbarComponent,CreateOperatorComponent, OperatorsComponent, OperatorHomeComponent],
-    providers : [CarService,AuthenticationService, EventEmitterService,OperatorService],
+    declarations : [AppComponent, HomeComponent,LoginComponent,NavbarComponent,
+        CarDetailComponent, CarsComponent,CreateCarComponent,
+        CreateOperatorComponent, OperatorsComponent, OperatorHomeComponent,
+        DeviceDetailComponent, DevicesComponent,CreateDeviceComponent,
+        DriverDetailComponent, DriversComponent,CreateDriverComponent,
+        BackButtonComponent],
+    providers : [CarService,AuthenticationService, EventEmitterService,OperatorService,DeviceService, DriverService],
     bootstrap : [AppComponent]
 })
 

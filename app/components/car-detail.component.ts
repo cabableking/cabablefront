@@ -1,9 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
-import {Location} from '@angular/common';
-import 'rxjs/add/operator/switchMap';
+import {Component, Input, OnInit} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import "rxjs/add/operator/switchMap";
 import {Car} from "../models/car";
-import {CarService} from '../services/car.service';
+import {CarService} from "../services/car.service";
 
 @Component({
     selector: 'car-detail',
@@ -87,7 +86,8 @@ import {CarService} from '../services/car.service';
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-primary" (click)="goBack()">Back</button>
+            <back-button></back-button>
+            <span [hidden]="!editMode"><button (click)="save()" class="btn btn-default">Save</button></span>
         </div>
     `
 })
@@ -100,17 +100,20 @@ export class CarDetailComponent implements OnInit{
     constructor(
         private carService : CarService,
         private route : ActivatedRoute,
-        private location : Location
+        private router : Router
     ){}
 
     ngOnInit(): void{
-        this.route.params
+        /*this.route.params
             .switchMap((params:Params)=> this.carService.getCar(+params['id']))
-            .subscribe(car=>this.car = car);
+            .subscribe(car=>this.car = car);*/
+        this.route.params.subscribe(p=>this.car=this.carService.getCar(+p['id']));
         this.editMode = window.location.pathname.indexOf('edit')!==-1;
     }
 
-    goBack():void{
-        this.location.back();
+    save(){
+        this.carService.saveCar(this.car); //not working, change to two way binding
+        this.router.navigate(['/car/list']);
+        return false;
     }
 }

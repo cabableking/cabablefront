@@ -16,7 +16,8 @@ export class CarsComponent implements OnInit {
     } //added provider for CarService in app.module.ts
 
     getCars(): void {
-        this.carService.getCars().then(cars => this.cars = cars);
+        //this.carService.getCars().then(cars => this.cars = cars);
+        this.cars = this.carService.getCars();
     }
 
     onSelectCar(car: Car): void {

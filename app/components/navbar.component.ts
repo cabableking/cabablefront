@@ -9,11 +9,11 @@ import {EventEmitterService} from "../services/event-emitter.service";
                   <a class="navbar-brand" routerLink="home">Cabable</a>
                 </div>
                 <div *ngIf="showNavBar">
-                    <ul class="nav navbar-nav">
+                    <!--<ul class="nav navbar-nav">
                       <li><a routerLink="/">Onboarding</a></li>
                       <li><a routerLink="/">Profile</a></li>
                       <li><a routerLink="/cars">Cars</a></li> 
-                    </ul>
+                    </ul>-->
                 </div>
               </div>
             </nav>

@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Drivers</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>License Number</th>
+            <th>Assigned</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let driver of drivers">
+            <td>{{driver.id}}</td>
+            <td>{{driver.name}}</td>
+            <td>{{driver.address}}</td>
+            <td>{{driver.licenceNumber}}</td>
+            <td>{{driver.isAssigned}}</td>
+            <td>
+                <a class="btn btn-default" [routerLink]="['/driver/view',driver.id]">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/driver/edit', driver.id]">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<back-button></back-button>
