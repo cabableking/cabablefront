@@ -19,6 +19,9 @@ import {OnboardingCarComponent} from "../components/onboarding-car.component";
 import {OnboardingDeviceComponent} from "../components/onboarding-device.component";
 import {OnboardingDriverComponent} from "../components/onboarding-driver.component";
 import {OnboardingFinishComponent} from "../components/onboarding-finish.component";
+import {CreateRatecardComponent} from "../components/create-ratecard.component";
+import {RatecardsComponent} from "../components/ratecards.component";
+import {RatecardDetailComponent} from "../components/ratecard-detail.component";
 
 const routes : Routes = [
     {path : 'home', component : HomeComponent},
@@ -36,6 +39,10 @@ const routes : Routes = [
     {path : 'driver/list', component : DriversComponent},
     {path : 'driver/view/:id', component : DriverDetailComponent},
     {path : 'driver/edit/:id', component : DriverDetailComponent},
+    {path : 'ratecard/create', component : CreateRatecardComponent},
+    {path : 'ratecard/list', component : RatecardsComponent},
+    {path : 'ratecard/view/:id', component : RatecardDetailComponent},
+    {path : 'ratecard/edit/:id', component : RatecardDetailComponent},
     {path : '', redirectTo : '/home', pathMatch : 'full'},
     {path : 'operator/create', component : CreateOperatorComponent},
     {path : 'operator/list', component : OperatorsComponent},

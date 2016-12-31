@@ -19,24 +19,24 @@ import {DriverService} from "../services/driver.service";
                         <tr>
                             <td>Name  </td>
                             <td [hidden]="editMode">{{driver.name}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.name}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.name}}" [(ngModel)]="driver.name"/></td>
                         </tr>
                         <tr>
                             <td>Address  </td>
                             <td [hidden]="editMode">{{driver.address}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.address}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.address}}" [(ngModel)]="driver.address"/></td>
                         </tr>
                         <tr>
                             <td>License Number  </td>
                             <td [hidden]="editMode">{{driver.licenceNumber}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.licenceNumber}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{driver.licenceNumber}}" [(ngModel)]="driver.licenceNumber"/></td>
                         </tr>
                         <tr>
                             <td>Assigned  </td>
                             <td [hidden]="editMode">{{driver.isAssigned}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="true" [checked]="driver.isAssigned">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="false" [checked]="!driver.isAssigned">No</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="true" [(ngModel)]="driver.isAssigned">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="false" [(ngModel)]="driver.isAssigned">No</label>
                             </td>
                         </tr>
                     </tbody>

@@ -5,7 +5,7 @@ import {CARS} from "../consts/mock-cars";
 @Injectable()
 export class CarService{
     cars : Car[] = [{
-        id : Math.ceil(Math.random()*1000),
+        id : 100,
         registrationNumber : 'KA03 HX4555',
         model : 'Hyundai',
         associatedDeviceId : 3,
@@ -20,7 +20,7 @@ export class CarService{
         isAssigned : true,
         statesPermitMap : 4
     },{
-        id : Math.ceil(Math.random()*1000),
+        id : 101,
         registrationNumber : 'KA08 HX4578',
         model : 'Benz',
         associatedDeviceId : 6,

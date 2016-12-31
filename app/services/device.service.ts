@@ -4,12 +4,12 @@ import {Device} from "../models/device";
 @Injectable()
 export class DeviceService{
     devices : Device[] = [{
-        id : Math.ceil(Math.random()*1000),
+        id : 100,
         imei : '74664738837738',
         model : 'Samsung Galaxy champ',
         isAssigned : false
     },{
-        id : Math.ceil(Math.random()*1000),
+        id : 101,
         imei : '5746473847332',
         model : 'Micromax canvas Duo',
         isAssigned : false

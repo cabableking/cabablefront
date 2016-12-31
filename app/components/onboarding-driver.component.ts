@@ -38,7 +38,7 @@ export class OnboardingDriverComponent implements OnInit{
 
     addDriver(){
         this.onboardingService.addDriverToOnboarding(this.onboarding, this.selectedDriverId);
-        this._router.navigate(['/onboarding/finish']);
+        this._router.navigate(['/onboarding/car',this.onboarding.id]);
         return false;
     }
 

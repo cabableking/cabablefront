@@ -4,13 +4,13 @@ import {Driver} from "../models/driver";
 @Injectable()
 export class DriverService{
     drivers : Driver[] = [{
-        id : Math.ceil(Math.random()*1000),
+        id : 100,
         name : 'Vikas Singh',
         address : 'HBR Layout, Bangalore',
         licenceNumber : 'DSI4638303',
         isAssigned : false
     },{
-        id : Math.ceil(Math.random()*1000),
+        id : 101,
         name : 'Ajay Singh',
         address : 'HBR Layout, Bangalore',
         licenceNumber : 'DSI4638494',

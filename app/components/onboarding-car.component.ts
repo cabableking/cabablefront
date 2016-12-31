@@ -38,7 +38,8 @@ export class OnboardingCarComponent implements OnInit{
 
     addCar(){
         this.onboardingService.addCarToOnboarding(this.onboarding, this.selectedCarId);
-        this._router.navigate(['/onboarding/device',this.onboarding.id]);
+        //this._router.navigate(['/onboarding/finish']);
+        this._router.navigate(['/onboarding/ratecard',this.onboarding.id]);
         return false;
     }
 

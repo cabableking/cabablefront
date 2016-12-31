@@ -35,7 +35,7 @@ export class OnboardingStartComponent{
     constructor(private onboardingService : OnboardingService, private _router : Router){}
     start(){
         this.onboardingService.createOnboarding(this.onboarding);
-        this._router.navigate(['/onboarding/car',this.onboarding.id]);
+        this._router.navigate(['/onboarding/device',this.onboarding.id]);
         return false;
     }
 }

@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Ratecards</div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Base Fare</th>
+            <th>Rate/KM</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let ratecard of ratecards">
+            <td>{{ratecard.id}}</td>
+            <td>{{ratecard.name}}</td>
+            <td>{{ratecard.type}}</td>
+            <td>{{ratecard.baseFare}}</td>
+            <td>{{ratecard.ratePerKM}}</td>
+            <td>
+                <a class="btn btn-default" [routerLink]="['/ratecard/view',ratecard.id]">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/ratecard/edit', ratecard.id]">Edit</a>
+                <a class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<back-button></back-button>

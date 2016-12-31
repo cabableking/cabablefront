@@ -19,19 +19,19 @@ import {DeviceService} from "../services/device.service";
                         <tr>
                             <td>IMEI  </td>
                             <td [hidden]="editMode">{{device.imei}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{device.imei}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{device.imei}}" [(ngModel)]="device.imei"/></td>
                         </tr>
                         <tr>
                             <td>Model  </td>
                             <td [hidden]="editMode">{{device.model}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{device.model}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{device.model}}" [(ngModel)]="device.model"/></td>
                         </tr>
                         <tr>
                             <td>Assigned  </td>
                             <td [hidden]="editMode">{{device.isAssigned}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="true" [checked]="device.isAssigned">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="false" [checked]="!device.isAssigned">No</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="true" [(ngModel)]="device.isAssigned">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="false" [(ngModel)]="device.isAssigned">No</label>
                             </td>
                         </tr>
                     </tbody>

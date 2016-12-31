@@ -19,12 +19,12 @@ import {CarService} from "../services/car.service";
                         <tr>
                             <td>Registration Number  </td>
                             <td [hidden]="editMode">{{car.registrationNumber}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.registrationNumber}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.registrationNumber}}" [(ngModel)]="car.registrationNumber"/></td>
                         </tr>
                         <tr>
                             <td>Model  </td>
                             <td [hidden]="editMode">{{car.model}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.model}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.model}}" [(ngModel)]="car.model"/></td>
                         </tr>
                         <tr>
                             <td>Associated Device Id  </td>
@@ -37,22 +37,22 @@ import {CarService} from "../services/car.service";
                         <tr>
                             <td>Capacity  </td>
                             <td [hidden]="editMode">{{car.capacity}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.capacity}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.capacity}}" [(ngModel)]="car.capacity"/></td>
                         </tr>    
                         <tr>
                             <td>Year  </td>
                             <td [hidden]="editMode">{{car.year}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.year}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.year}}" [(ngModel)]="car.year"/></td>
                         </tr>
                         <tr>
                             <td>Color  </td>
                             <td [hidden]="editMode">{{car.color}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.color}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.color}}" [(ngModel)]="car.color"/></td>
                         </tr>
                         <tr>
                             <td>Category  </td>
                             <td [hidden]="editMode">{{car.category}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.category}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.category}}" [(ngModel)]="car.category"/></td>
                         </tr>
                         <tr>
                             <td>Operator Id  </td>
@@ -61,22 +61,22 @@ import {CarService} from "../services/car.service";
                         <tr>
                             <td>Make  </td>
                             <td [hidden]="editMode">{{car.make}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.make}}" /></td>
+                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.make}}" [(ngModel)]="car.make"/></td>
                         </tr>
                         <tr>
                             <td>AC  </td>
                             <td [hidden]="editMode">{{car.hasAC}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="hasAC" value="true" [checked]="car.hasAC">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="hasAC" value="false" [checked]="!car.hasAC">No</label>
+                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="true" [(ngModel)]="car.hasAC">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="false" [(ngModel)]="car.hasAC">No</label>
                             </td>
                         </tr>
                         <tr>
                             <td>Assigned  </td>
                             <td [hidden]="editMode">{{car.isAssigned}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="true" [checked]="car.isAssigned">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="isAssigned" value="false" [checked]="!car.isAssigned">No</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="true"  [(ngModel)]="car.isAssigned">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="false"  [(ngModel)]="car.isAssigned">No</label>
                             </td>
                         </tr>
                         <tr>
