@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Driver} from "../models/driver";
 import {DriverService} from "../services/driver.service";
@@ -8,6 +8,9 @@ import {DriverService} from "../services/driver.service";
     template: `
         <div *ngIf="errorMsg">
             <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+        </div>
+        <div *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">{{successMsg}}</div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -27,7 +30,7 @@ import {DriverService} from "../services/driver.service";
                     <label for="licenceNumber">Licence Number</label>
                     <input type="text" class="form-control" id="licenceNumber" [(ngModel)]="driver.licenceNumber" name="licenceNumber" required="required">
                 </div>
-                <back-button></back-button>
+                <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
             </form>
           </div>
@@ -36,7 +39,7 @@ import {DriverService} from "../services/driver.service";
     `
 })
 
-export class CreateDriverComponent{
+export class CreateDriverComponent implements OnInit{
     driver :Driver = {
         id : Math.ceil(Math.random()*1000),
         name : '',
@@ -44,10 +47,19 @@ export class CreateDriverComponent{
         licenceNumber : '',
         isAssigned : false
     };
+    successMsg:String = '';
+    onboardingPage:Boolean = false;
     constructor(private driverService : DriverService, private _router : Router){}
     create(){
         this.driverService.createDriver(this.driver);
+        if(this.onboardingPage){
+            this.successMsg = 'New driver added successfully! Please choose it from the list';
+            return false;
+        }
         this._router.navigate(['/driver/list']);
         return false;
+    }
+    ngOnInit(){
+        this.onboardingPage = window.location.pathname.indexOf('onboarding')!==-1;
     }
 }

@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Device} from "../models/device";
 import {DeviceService} from "../services/device.service";
@@ -8,6 +8,9 @@ import {DeviceService} from "../services/device.service";
     template: `
         <div *ngIf="errorMsg">
             <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+        </div>
+        <div *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">{{successMsg}}</div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -23,7 +26,7 @@ import {DeviceService} from "../services/device.service";
                     <label for="model">Model</label>
                     <input type="text" class="form-control" id="model" [(ngModel)]="device.model" name="model" required="required">
                 </div>
-                <back-button></back-button>
+                <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
             </form>
           </div>
@@ -32,17 +35,26 @@ import {DeviceService} from "../services/device.service";
     `
 })
 
-export class CreateDeviceComponent{
+export class CreateDeviceComponent implements OnInit{
     device :Device = {
         id : Math.ceil(Math.random()*1000),
         imei : '',
         model : '',
         isAssigned : false
     };
+    successMsg:String = '';
+    onboardingPage:Boolean = false;
     constructor(private deviceService : DeviceService, private _router : Router){}
     create(){
         this.deviceService.createDevice(this.device);
+        if(this.onboardingPage){
+            this.successMsg = 'New device added successfully! Please choose it from the list';
+            return false;
+        }
         this._router.navigate(['/device/list']);
         return false;
+    }
+    ngOnInit(){
+        this.onboardingPage = window.location.pathname.indexOf('onboarding')!==-1;
     }
 }

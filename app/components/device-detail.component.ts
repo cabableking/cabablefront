@@ -60,7 +60,7 @@ export class DeviceDetailComponent implements OnInit{
     }
 
     save(){
-        this.deviceService.saveDevice(this.device); //not working, change to two way binding
+        this.deviceService.saveDevice(this.device);
         this.router.navigate(['/device/list']);
         return false;
     }

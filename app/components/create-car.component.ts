@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Car} from "../models/car";
 import {CarService} from "../services/car.service";
@@ -8,6 +8,9 @@ import {CarService} from "../services/car.service";
     template: `
         <div *ngIf="errorMsg">
             <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+        </div>
+        <div *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">{{successMsg}}</div>
         </div>
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -39,7 +42,7 @@ import {CarService} from "../services/car.service";
                     <label for="category">Category:</label>
                     <input type="text" class="form-control" id="category" [(ngModel)]="car.category" name="category" required="required">
                 </div>
-                <back-button></back-button>
+                <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
             </form>
           </div>
@@ -48,7 +51,7 @@ import {CarService} from "../services/car.service";
     `
 })
 
-export class CreateCarComponent{
+export class CreateCarComponent implements OnInit{
     car :Car = {
         id : Math.ceil(Math.random()*1000),
         registrationNumber : '',
@@ -65,10 +68,19 @@ export class CreateCarComponent{
         isAssigned : false,
         statesPermitMap : 0
     };
+    successMsg:String = '';
+    onboardingPage:Boolean = false;
     constructor(private carService : CarService, private _router : Router){}
     create(){
         this.carService.createCar(this.car);
+        if(this.onboardingPage){
+            this.successMsg = 'New car added successfully! Please choose it from the list';
+            return false;
+        }
         this._router.navigate(['/car/list']);
         return false;
+    }
+    ngOnInit(){
+        this.onboardingPage = window.location.pathname.indexOf('onboarding')!==-1;
     }
 }

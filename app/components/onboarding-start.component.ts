@@ -29,7 +29,8 @@ export class OnboardingStartComponent{
         status : 0,
         associatedCarId : 0,
         associatedDeviceId : 0,
-        associatedDriverId : 0
+        associatedDriverId : 0,
+        associatedRatecardId : 0
     };
 
     constructor(private onboardingService : OnboardingService, private _router : Router){}
