@@ -36,6 +36,7 @@ import {CommonUtilsService} from "../services/common-utils.service";
 import {RatecardService} from "../services/ratecard.service";
 import {RatecardsComponent} from "../components/ratecards.component";
 import {RatecardDetailComponent} from "../components/ratecard-detail.component";
+import {OnboardingRatecardComponent} from "../components/onboarding-ratecard.component";
 
 
 @NgModule({
@@ -50,9 +51,9 @@ import {RatecardDetailComponent} from "../components/ratecard-detail.component";
         DeviceDetailComponent, DevicesComponent,CreateDeviceComponent,
         DriverDetailComponent, DriversComponent,CreateDriverComponent,
         CreateRatecardComponent, RatecardsComponent, RatecardDetailComponent,
-        OnboardingStartComponent,OnboardingCarComponent, OnboardingDeviceComponent, OnboardingDriverComponent,
-        OnboardingFinishComponent,
-        BackButtonComponent],
+        OnboardingStartComponent,OnboardingCarComponent, OnboardingRatecardComponent,OnboardingDeviceComponent,
+        OnboardingDriverComponent, OnboardingFinishComponent, BackButtonComponent
+    ],
     providers : [CarService,AuthenticationService, EventEmitterService,OperatorService,DeviceService, DriverService,
         OnboardingService,CommonUtilsService, RatecardService],
     bootstrap : [AppComponent]

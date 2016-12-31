@@ -22,13 +22,6 @@ export class OnboardingService{
         this.createOnboarding(onboarding);
     }
 
-    addCarToOnboarding(onboarding : Onboarding, carId : Number){
-        this.onboardings = this.onboardings.filter(c=>c.id!==onboarding.id);
-        let ob = onboarding;
-        ob.associatedCarId = carId;
-        this.createOnboarding(ob);
-    }
-
     addDeviceToOnboarding(onboarding : Onboarding, deviceId : Number){
         this.onboardings = this.onboardings.filter(c=>c.id!==onboarding.id);
         let ob = onboarding;
@@ -40,6 +33,20 @@ export class OnboardingService{
         this.onboardings = this.onboardings.filter(c=>c.id!==onboarding.id);
         let ob = onboarding;
         ob.associatedDriverId = driverId;
+        this.createOnboarding(ob);
+    }
+
+    addCarToOnboarding(onboarding : Onboarding, carId : Number){
+        this.onboardings = this.onboardings.filter(c=>c.id!==onboarding.id);
+        let ob = onboarding;
+        ob.associatedCarId = carId;
+        this.createOnboarding(ob);
+    }
+
+    addRatecardToOnboarding(onboarding : Onboarding, ratecardId : Number){
+        this.onboardings = this.onboardings.filter(c=>c.id!==onboarding.id);
+        let ob = onboarding;
+        ob.associatedRatecardId = ratecardId;
         this.createOnboarding(ob);
     }
 }

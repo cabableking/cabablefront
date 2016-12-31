@@ -22,6 +22,7 @@ import {OnboardingFinishComponent} from "../components/onboarding-finish.compone
 import {CreateRatecardComponent} from "../components/create-ratecard.component";
 import {RatecardsComponent} from "../components/ratecards.component";
 import {RatecardDetailComponent} from "../components/ratecard-detail.component";
+import {OnboardingRatecardComponent} from "../components/onboarding-ratecard.component";
 
 const routes : Routes = [
     {path : 'home', component : HomeComponent},
@@ -49,9 +50,10 @@ const routes : Routes = [
     {path : 'operator/login', component : LoginComponent},
     {path : 'operator/home', component : OperatorHomeComponent},
     {path : 'onboarding/start', component : OnboardingStartComponent},
-    {path : 'onboarding/car/:id', component : OnboardingCarComponent},
     {path : 'onboarding/device/:id', component : OnboardingDeviceComponent},
     {path : 'onboarding/driver/:id', component : OnboardingDriverComponent},
+    {path : 'onboarding/car/:id', component : OnboardingCarComponent},
+    {path : 'onboarding/ratecard/:id', component : OnboardingRatecardComponent},
     {path : 'onboarding/finish', component : OnboardingFinishComponent}
 ];
 
