@@ -4,7 +4,14 @@ import {Component} from '@angular/core';
     template: `
         <nav-bar></nav-bar>
         <div class="container">
-            <router-outlet></router-outlet>
+            <div class="row">
+                <div class="col-sm-3">
+                        <sidebar-nav></sidebar-nav>
+                </div>
+                <div class="col-sm-9">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
         </div>
     `
 })

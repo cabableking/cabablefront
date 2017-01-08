@@ -11,3 +11,7 @@
 .center{text-align: center;}
 .width100{width: 100%;}
 .height30{height: 30px;}
+.left{float: left;}
+.right{float: right;}
+.auto{overflow: auto;}
+.bold{font-weight: bold;}
