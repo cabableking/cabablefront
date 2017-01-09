@@ -23,6 +23,8 @@ import {Component} from '@angular/core';
                 <li routerLinkActive="active"><a routerLink="/device/list">View All Devices</a></li>
                 <li routerLinkActive="active"><a routerLink="/driver/create">Create Driver</a></li>
                 <li routerLinkActive="active"><a routerLink="/driver/list">View All Drivers</a></li>
+                <li routerLinkActive="active"><a routerLink="/ratecard/create">Create Rate Card</a></li>
+                <li routerLinkActive="active"><a routerLink="/ratecard/list">View All Rate Cards</a></li>
                 <li routerLinkActive="active"><a routerLink="/onboarding/start">Start Onboarding</a></li>
               </ul>
             </div>
