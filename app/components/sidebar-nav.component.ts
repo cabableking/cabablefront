@@ -3,54 +3,53 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'sidebar-nav',
     template : `
-        <div class="sidebar-nav">
-          <div class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <span class="visible-xs navbar-brand">Operator Actions</span>
+        <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                <img src="../../images/img.jpg" alt="..." class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Operator 1</h2>
+              </div>
             </div>
-            <div class="navbar-collapse collapse sidebar-navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li routerLinkActive="active"><a routerLink="/operator/home">Home</a></li>
-                <li routerLinkActive="active"><a routerLink="/car/create">Create Car</a></li>
-                <li routerLinkActive="active"><a routerLink="/car/list">View All Cars</a></li>
-                <li routerLinkActive="active"><a routerLink="/device/create">Create Device</a></li>
-                <li routerLinkActive="active"><a routerLink="/device/list">View All Devices</a></li>
-                <li routerLinkActive="active"><a routerLink="/driver/create">Create Driver</a></li>
-                <li routerLinkActive="active"><a routerLink="/driver/list">View All Drivers</a></li>
-                <li routerLinkActive="active"><a routerLink="/ratecard/create">Create Rate Card</a></li>
-                <li routerLinkActive="active"><a routerLink="/ratecard/list">View All Rate Cards</a></li>
-                <li routerLinkActive="active"><a routerLink="/onboarding/start">Start Onboarding</a></li>
-              </ul>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <ul class="nav side-menu">
+                  <li routerLinkActive="active"><a routerLink="/operator/home"><i class="fa fa-home"></i> Home</a></li>
+                  <li><a><i class="fa fa-home"></i> Car <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li routerLinkActive="active"><a routerLink="/car/create">Create Car</a></li>
+                      <li routerLinkActive="active"><a routerLink="/car/list">View All Cars</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-home"></i> Device <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li routerLinkActive="active"><a routerLink="/device/create">Create Device</a></li>
+                      <li routerLinkActive="active"><a routerLink="/device/list">View All Devices</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-home"></i> Driver <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li routerLinkActive="active"><a routerLink="/driver/create">Create Driver</a></li>
+                      <li routerLinkActive="active"><a routerLink="/driver/list">View All Drivers</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-home"></i> Rate Card <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li routerLinkActive="active"><a routerLink="/ratecard/create">Create Rate Card</a></li>
+                      <li routerLinkActive="active"><a routerLink="/ratecard/list">View All Rate Cards</a></li>
+                    </ul>
+                  </li>
+                  <li routerLinkActive="active"><a routerLink="/onboarding/start"><i class="fa fa-laptop"></i>Start Onboarding</a></li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </div>
-    `,
-    styles : [`
-        @media (min-width: 768px) {
-          .sidebar-nav .navbar .navbar-collapse {
-            padding: 0;
-            max-height: none;
-          }
-          .sidebar-nav .navbar ul {
-            float: none;
-            display: block;
-          }
-          .sidebar-nav .navbar li {
-            float: none;
-            display: block;
-          }
-          .sidebar-nav .navbar li a {
-            padding-top: 12px;
-            padding-bottom: 12px;
-          }
-        }
-    `]
+    `
 })
 
 export class SidebarNavComponent{
