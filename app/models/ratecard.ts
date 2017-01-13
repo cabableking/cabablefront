@@ -12,4 +12,9 @@ export class Ratecard {
     driverDATimingsFromAMPM: String;
     driverDATimingsTo: String;
     driverDATimingsToAMPM: String;
+    airportPickup:String;
+    airportDrop:String;
+    roundTrip:String;
+    ratePerExtraKM:String;
+    ragePerWaitMinute:String;
 }
