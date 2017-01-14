@@ -12,10 +12,10 @@ import {Router} from "@angular/router";
             <div *ngIf="errorMsg">
                 <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
             </div>
-            <div style="margin-bottom: 30px">
+            <div style="margin-bottom: 30px" class="hide">
               <span>Login As :</span>
               <label class="radio-inline"><input #superAdmin type="radio" name="loginAs" value="sa" checked (click)="setUserRole($event)">SuperAdmin</label>
-              <label class="radio-inline"><input #operator type="radio" name="loginAs" value="op" (click)="setUserRole($event)">Operator</label>
+              <label class="radio-inline"><input #operator type="radio" name="loginAs" value="op" (click)="setUserRole($event)" checked>Operator</label>
             </div>
             <div class="panel panel-default">
               <div class="panel-heading">
@@ -42,7 +42,7 @@ import {Router} from "@angular/router";
 export class LoginComponent {
     public user:User = {email:'',password:''};
     public errorMsg = '';
-    public userRole = 'SuperAdmin';
+    public userRole = 'Operator';
 
     constructor(private _service:AuthenticationService,
                 private _eventEmitterService : EventEmitterService, private operatorService : OperatorService, private _router: Router) {
