@@ -45,7 +45,9 @@ export class LoginComponent {
     public userRole = 'SuperAdmin';
 
     constructor(private _service:AuthenticationService,
-                private _eventEmitterService : EventEmitterService, private operatorService : OperatorService, private _router: Router) {}
+                private _eventEmitterService : EventEmitterService, private operatorService : OperatorService, private _router: Router) {
+        this._eventEmitterService.loginPage.emit(true);
+    }
 
     login(event:Event) {
         if(this.userRole == 'SuperAdmin'){

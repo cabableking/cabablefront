@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {OperatorService} from "../services/operator.service";
 import {Router} from "@angular/router";
+import {EventEmitterService} from "../services/event-emitter.service";
 
 @Component({
     selector: 'operator-home',
@@ -21,7 +22,9 @@ import {Router} from "@angular/router";
 
 export class OperatorHomeComponent{
 
-    constructor(private operatorService:OperatorService, private _router : Router){}
+    constructor(private operatorService:OperatorService, private _router : Router, private _eventEmitterService : EventEmitterService){
+        this._eventEmitterService.loginPage.emit(false);
+    }
 
 
     logout() {
