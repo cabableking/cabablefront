@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Car} from "../models/car";
 import {CarService} from "../services/car.service";
+import {CommonUtilsService} from "../services/common-utils.service";
+import {Router} from "@angular/router";
 
 @Component({
     moduleId : module.id,
@@ -10,21 +12,41 @@ import {CarService} from "../services/car.service";
 
 export class CarsComponent implements OnInit {
     cars: Car[];
-    selectedCar: Car;
+    errorMsg = '';
+    successMsg = '';
 
-    constructor(private carService: CarService) {
-    } //added provider for CarService in app.module.ts
+    constructor(
+        private carService: CarService,
+        private _router : Router
+    ) {}
 
     getCars(): void {
-        //this.carService.getCars().then(cars => this.cars = cars);
-        this.cars = this.carService.getCars();
+        this.carService.getCars().then(resp => {
+            if(resp.status==200){
+                this.cars = JSON.parse(resp['_body']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
     }
 
-    onSelectCar(car: Car): void {
-        this.selectedCar = car;
+    deleteCar(car_reg_id){
+        this.carService.deleteCar(car_reg_id).then(resp => {
+            if(resp.status==200){
+                CommonUtilsService.flashMessage = 'Car deleted successfully!';
+                this._router.navigate(['/car/list']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
+        return false;
     }
 
     ngOnInit(): void {
         this.getCars();
+        if(CommonUtilsService.flashMessage){
+            this.successMsg = CommonUtilsService.flashMessage;
+            CommonUtilsService.flashMessage = '';
+        }
     }
 }

@@ -12,9 +12,9 @@ export class AuthenticationService{
     }
 
     login(user:User){
-        let authenticatedUser = USERS.find(u=>u.email===user.email);
+        let authenticatedUser = USERS.find(u=>u.username===user.username);
         if(authenticatedUser && authenticatedUser.password===user.password){
-            localStorage.setItem('user',authenticatedUser.email);
+            localStorage.setItem('user',authenticatedUser.username);
             this._router.navigate(['/home']);
             return true;
         }

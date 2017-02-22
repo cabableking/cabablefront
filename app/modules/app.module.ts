@@ -38,13 +38,16 @@ import {RatecardsComponent} from "../components/ratecards.component";
 import {RatecardDetailComponent} from "../components/ratecard-detail.component";
 import {OnboardingRatecardComponent} from "../components/onboarding-ratecard.component";
 import {SidebarNavComponent} from "../components/sidebar-nav.component";
+import {HttpModule} from "@angular/http";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 
 @NgModule({
     imports : [
         BrowserModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
+        HttpModule
     ],
     declarations : [AppComponent, HomeComponent,LoginComponent,NavbarComponent,
         CarDetailComponent, CarsComponent,CreateCarComponent,
@@ -56,7 +59,7 @@ import {SidebarNavComponent} from "../components/sidebar-nav.component";
         OnboardingDriverComponent, OnboardingFinishComponent, BackButtonComponent, SidebarNavComponent
     ],
     providers : [CarService,AuthenticationService, EventEmitterService,OperatorService,DeviceService, DriverService,
-        OnboardingService,CommonUtilsService, RatecardService],
+        OnboardingService,CommonUtilsService, RatecardService, CookieService],
     bootstrap : [AppComponent]
 })
 

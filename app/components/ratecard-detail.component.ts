@@ -109,7 +109,7 @@ export class RatecardDetailComponent implements OnInit{
     ){}
 
     ngOnInit(): void{
-        this.route.params.subscribe(p=>this.ratecard=this.ratecardService.getRatecard(+p['id']));
+        //this.route.params.subscribe(p=>this.ratecard=this.ratecardService.getRatecard(+p['id']));
         this.editMode = window.location.pathname.indexOf('edit')!==-1;
     }
 

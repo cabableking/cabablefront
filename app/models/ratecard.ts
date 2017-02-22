@@ -1,5 +1,4 @@
 export class Ratecard {
-    id: Number;
     name: String;
     type: String;
     baseFare: String;
@@ -17,4 +16,15 @@ export class Ratecard {
     roundTrip:String;
     ratePerExtraKM:String;
     ragePerWaitMinute:String;
+    serviceTax:String;
+    otherTaxes:String;
+    inclusiveTime:String;
+    hoursInPackage:String;
+    extraKMCharge:String;
+    extraHourCharge:String;
+    applyTwoWay:String;
+    from:String;
+    to:String;
+    fees:String;
+    tollAndParking:String;
 }

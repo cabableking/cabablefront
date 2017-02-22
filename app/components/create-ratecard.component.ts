@@ -71,6 +71,71 @@ import {CommonUtilsService} from "../services/common-utils.service";
                       <option *ngFor="let c of ['AM','PM']" [ngValue]="c">{{c}}</option>
                     </select>
                 </div>
+                <div class="form-group" [hidden]="fieldVisibility('airportPickup')">
+                    <label for="airportPickup">Airport Pickup</label>
+                    <label class="radio-inline"><input id="airportPickup" type="radio" name="airportPickup" [value]="true" [(ngModel)]="ratecard.airportPickup">Yes</label>
+                    <label class="radio-inline"><input type="radio" name="airportPickup" [value]="false" [(ngModel)]="ratecard.airportPickup">No</label>
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('airportDrop')">
+                    <label for="airportDrop">Airport Drop</label>
+                    <input type="checkbox" [(ngModel)]="ratecard.airportDrop" id="airportDrop" name="airportDrop">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('roundTrip')">
+                    <label for="roundTrip">Round Trip</label>
+                    <input type="checkbox" [(ngModel)]="ratecard.roundTrip" id="roundTrip" name="roundTrip">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('ratePerExtraKM')">
+                    <label for="ratePerExtraKM">Rate/Extra KM</label>
+                    <input type="text" class="form-control" id="ratePerExtraKM" [(ngModel)]="ratecard.ratePerExtraKM" name="ratePerExtraKM" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('ragePerWaitMinute')">
+                    <label for="ragePerWaitMinute">Rate/Wait Minute</label>
+                    <input type="text" class="form-control" id="ragePerWaitMinute" [(ngModel)]="ratecard.ragePerWaitMinute" name="ragePerWaitMinute" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('serviceTax')">
+                    <label for="serviceTax">Service Tax</label>
+                    <input type="text" class="form-control" id="serviceTax" [(ngModel)]="ratecard.serviceTax" name="serviceTax" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('otherTaxes')">
+                    <label for="otherTaxes">Other Taxes</label>
+                    <input type="text" class="form-control" id="otherTaxes" [(ngModel)]="ratecard.otherTaxes" name="otherTaxes" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('inclusiveTime')">
+                    <label for="inclusiveTime">Inclusive Time</label>
+                    <input type="text" class="form-control" id="inclusiveTime" [(ngModel)]="ratecard.inclusiveTime" name="inclusiveTime" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('hoursInPackage')">
+                    <label for="hoursInPackage">Hours in Package</label>
+                    <input type="text" class="form-control" id="hoursInPackage" [(ngModel)]="ratecard.hoursInPackage" name="hoursInPackage" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('extraKMCharge')">
+                    <label for="extraKMCharge">Extra KM charge</label>
+                    <input type="text" class="form-control" id="extraKMCharge" [(ngModel)]="ratecard.extraKMCharge" name="extraKMCharge" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('extraHourCharge')">
+                    <label for="extraHourCharge">Extra hour charge</label>
+                    <input type="text" class="form-control" id="extraHourCharge" [(ngModel)]="ratecard.extraHourCharge" name="extraHourCharge" required="required">
+                </div>
+                
+                <div class="form-group" [hidden]="fieldVisibility('applyTwoWay')">
+                    <label for="applyTwoWay">Apply Two way</label>
+                    <input type="checkbox" [(ngModel)]="ratecard.applyTwoWay" id="applyTwoWay" name="applyTwoWay">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('from')">
+                    <label for="from">From</label>
+                    <input type="text" class="form-control" id="from" [(ngModel)]="ratecard.from" name="from" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('to')">
+                    <label for="to">To</label>
+                    <input type="text" class="form-control" id="to" [(ngModel)]="ratecard.to" name="to" required="required">
+                </div>
+                <div class="form-group" [hidden]="fieldVisibility('fees')">
+                    <label for="fees">Fees</label>
+                    <input type="text" class="form-control" id="fees" [(ngModel)]="ratecard.fees" name="fees" required="required">
+                </div><div class="form-group" [hidden]="fieldVisibility('tollAndParking')">
+                    <label for="tollAndParking">Toll & Parking</label>
+                    <input type="text" class="form-control" id="tollAndParking" [(ngModel)]="ratecard.tollAndParking" name="tollAndParking" required="required">
+                </div>
                 
                 <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
@@ -83,7 +148,6 @@ import {CommonUtilsService} from "../services/common-utils.service";
 
 export class CreateRatecardComponent implements OnInit{
     ratecard :Ratecard = {
-        id : Math.ceil(Math.random()*1000),
         name : '',
         type : '',
         baseFare : '',
@@ -100,12 +164,24 @@ export class CreateRatecardComponent implements OnInit{
         airportDrop: '',
         roundTrip: '',
         ratePerExtraKM: '',
-        ragePerWaitMinute: ''
+        ragePerWaitMinute: '',
+        serviceTax:'',
+        otherTaxes:'',
+        inclusiveTime:'',
+        hoursInPackage:'',
+        extraKMCharge:'',
+        extraHourCharge:'',
+        applyTwoWay:'',
+        from:'',
+        to:'',
+        fees:'',
+        tollAndParking:'',
     };
     successMsg:String = '';
     onboardingPage:Boolean = false;
 
-    rateCardTypes = Object.keys(CommonUtilsService.rateCardTypes);
+    //rateCardTypes = Object.keys(CommonUtilsService.rateCardTypes);
+    rateCardTypes=[];
     selectedRateCardType = '';
     rateCardSelectedFields: String[] = [];
     timeHours = CommonUtilsService.timeHours;
@@ -121,15 +197,25 @@ export class CreateRatecardComponent implements OnInit{
     }
 
     fieldVisibility(field){
-        return this.rateCardSelectedFields.indexOf(field)==-1;
+        return this.rateCardSelectedFields.indexOf(field.toLowerCase())==-1;
     }
 
     onChangeRateCardType(selectedRateCardType){
         this.selectedRateCardType = selectedRateCardType;
-        this.rateCardSelectedFields = this.ratecardService.getRatecardFields(selectedRateCardType);
+        this.ratecardService.getRatecardFields(selectedRateCardType).then(resp => {
+            if(resp.status==200){
+                let data = JSON.parse(resp['_body']);
+                this.rateCardSelectedFields = data[0]['rate_card_keys_list'];
+            }
+        });
     }
 
     ngOnInit(){
         this.onboardingPage = window.location.pathname.indexOf('onboarding')!==-1;
+        this.ratecardService.getPlanNames().then(resp => {
+            if(resp.status==200){
+                this.rateCardTypes = JSON.parse(resp['_body']);
+            }
+        });
     }
 }

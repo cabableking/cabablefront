@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Operator} from "../models/operator";
+import {User} from "../models/user";
+import {CommonUtilsService} from "./common-utils.service";
 
 @Injectable()
 export class OperatorService{
+
     operators : Operator[] = [
         {
             email : 'operator1@gmail.com',

@@ -1,16 +1,14 @@
 export class Car {
-    id: Number;
-    registrationNumber: String;
+    car_reg_id: String;
     model: String;
-    associatedDeviceId: Number;
-    associatedDriverId: Number;
     capacity : Number;
     year : Number;
     color : String;
     category : String;
-    operatorId : Number;
+    operator_id : Number;
     make : String;
-    hasAC : Boolean;
-    isAssigned : Boolean;
-    statesPermitMap : Number;
+    has_ac : Boolean;
+    is_assigned : Boolean;
+    states_permit_map : Number;
+    parent_category : String;
 }

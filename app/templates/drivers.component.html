@@ -3,27 +3,25 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Address</th>
             <th>License Number</th>
-            <th>Assigned</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Contact Number</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let driver of drivers">
-            <td>{{driver.id}}</td>
-            <td>{{driver.name}}</td>
-            <td>{{driver.address}}</td>
-            <td>{{driver.licenceNumber}}</td>
-            <td>{{driver.isAssigned}}</td>
-            <td>
-                <a class="btn btn-default" [routerLink]="['/driver/view',driver.id]">Details</a>
-                <a class="btn btn-primary" [routerLink]="['/driver/edit', driver.id]">Edit</a>
-                <a class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+            <tr *ngFor="let driver of drivers">
+                <td>{{driver.driver_license_no}}</td>
+                <td>{{driver.first_name}}</td>
+                <td>{{driver.last_name}}</td>
+                <td>{{driver.contact_num}}</td>
+                <td>
+                    <a class="btn btn-default" [routerLink]="['/driver/view',driver.driver_license_no]">Details</a>
+                    <a class="btn btn-primary" [routerLink]="['/driver/edit', driver.driver_license_no]">Edit</a>
+                    <a class="btn btn-danger" (click)="deleteDriver(driver.driver_license_no)">Delete</a>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

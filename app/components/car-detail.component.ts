@@ -3,37 +3,31 @@ import {ActivatedRoute, Router} from "@angular/router";
 import "rxjs/add/operator/switchMap";
 import {Car} from "../models/car";
 import {CarService} from "../services/car.service";
+import {CommonUtilsService} from "../services/common-utils.service";
 
 @Component({
     selector: 'car-detail',
     template : `
+         <div *ngIf="errorMsg">
+            <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+        </div>
+        <div *ngIf="successMsg">
+            <div class="alert alert-success" role="alert">{{successMsg}}</div>
+        </div>
          <div *ngIf="car">
             <div class="panel panel-primary">
-                <div class="panel-heading">{{car.registrationNumber}}</div>
+                <div class="panel-heading">{{car.car_reg_id}}</div>
                 <table class="table table-striped table-bordered">
                     <tbody>
                         <tr>
-                            <td>id</td>
-                            <td>{{car.id}}</td>
-                        </tr>
-                        <tr>
                             <td>Registration Number  </td>
-                            <td [hidden]="editMode">{{car.registrationNumber}}</td>
-                            <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.registrationNumber}}" [(ngModel)]="car.registrationNumber"/></td>
+                            <td>{{car.car_reg_id}}</td>
                         </tr>
                         <tr>
                             <td>Model  </td>
                             <td [hidden]="editMode">{{car.model}}</td>
                             <td [hidden]="!editMode"><input class="form-control" type="text" value="{{car.model}}" [(ngModel)]="car.model"/></td>
                         </tr>
-                        <tr>
-                            <td>Associated Device Id  </td>
-                            <td>{{car.associatedDeviceId}}</td>
-                        </tr>
-                        <tr>
-                            <td>Associated Driver Id  </td>
-                            <td>{{car.associatedDriverId}}</td>
-                        </tr> 
                         <tr>
                             <td>Capacity  </td>
                             <td [hidden]="editMode">{{car.capacity}}</td>
@@ -56,7 +50,7 @@ import {CarService} from "../services/car.service";
                         </tr>
                         <tr>
                             <td>Operator Id  </td>
-                            <td>{{car.operatorId}}</td>
+                            <td>{{car.operator_id}}</td>
                         </tr>
                         <tr>
                             <td>Make  </td>
@@ -65,23 +59,23 @@ import {CarService} from "../services/car.service";
                         </tr>
                         <tr>
                             <td>AC  </td>
-                            <td [hidden]="editMode">{{car.hasAC}}</td>
+                            <td [hidden]="editMode">{{car.has_ac}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="true" [(ngModel)]="car.hasAC">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="false" [(ngModel)]="car.hasAC">No</label>
+                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="true" [(ngModel)]="car.has_ac">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="hasAC" [value]="false" [(ngModel)]="car.has_ac">No</label>
                             </td>
                         </tr>
                         <tr>
                             <td>Assigned  </td>
-                            <td [hidden]="editMode">{{car.isAssigned}}</td>
+                            <td [hidden]="editMode">{{car.is_assigned}}</td>
                             <td [hidden]="!editMode">
-                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="true"  [(ngModel)]="car.isAssigned">Yes</label>
-                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="false"  [(ngModel)]="car.isAssigned">No</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="true"  [(ngModel)]="car.is_assigned">Yes</label>
+                                <label class="radio-inline"><input type="radio" name="isAssigned" [value]="false"  [(ngModel)]="car.is_assigned">No</label>
                             </td>
                         </tr>
                         <tr>
                             <td>States Permit Map  </td>
-                            <td>{{car.statesPermitMap}}</td>
+                            <td>{{car.states_permit_map}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -97,23 +91,43 @@ export class CarDetailComponent implements OnInit{
     car:Car;
 
     editMode:Boolean = false;
+    errorMsg = '';
+    successMsg = '';
+    car_reg_id = '';
     constructor(
         private carService : CarService,
         private route : ActivatedRoute,
         private router : Router
     ){}
 
-    ngOnInit(): void{
-        /*this.route.params
-            .switchMap((params:Params)=> this.carService.getCar(+params['id']))
-            .subscribe(car=>this.car = car);*/
-        this.route.params.subscribe(p=>this.car=this.carService.getCar(+p['id']));
+    ngOnInit(){
+        this.route.params.subscribe(p=>{
+            this.carService.getCar(p['id']).then(resp => {
+                if(resp.status==200){
+                    this.car = JSON.parse(resp['_body']);
+                }else{
+                    this.errorMsg = resp['message'];
+                }
+            });
+        });
+
+        if(CommonUtilsService.flashMessage){
+            this.successMsg = CommonUtilsService.flashMessage;
+            CommonUtilsService.flashMessage = '';
+        }
+
         this.editMode = window.location.pathname.indexOf('edit')!==-1;
     }
 
     save(){
-        this.carService.saveCar(this.car); //not working, change to two way binding
-        this.router.navigate(['/car/list']);
+        this.carService.saveCar(this.car).then(resp => {
+            if(resp.status==200){
+                CommonUtilsService.flashMessage = 'Car details updated successfully!';
+                this.router.navigate(['/car/view/'+this.car.car_reg_id]);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
         return false;
     }
 }

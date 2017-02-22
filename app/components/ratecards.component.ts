@@ -14,7 +14,7 @@ export class RatecardsComponent implements OnInit {
     constructor(private ratecardService: RatecardService) {}
 
     getRatecards(): void {
-        this.ratecards = this.ratecardService.getRatecards();
+        //this.ratecards = this.ratecardService.getRatecards();
     }
 
     ngOnInit(): void {

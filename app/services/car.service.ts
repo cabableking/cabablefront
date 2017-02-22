@@ -1,55 +1,39 @@
 import {Injectable} from '@angular/core';
 import {Car} from "../models/car";
-import {CARS} from "../consts/mock-cars";
+import {CommonUtilsService} from "./common-utils.service";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Injectable()
 export class CarService{
-    cars : Car[] = [{
-        id : 100,
-        registrationNumber : 'KA03 HX4555',
-        model : 'Hyundai',
-        associatedDeviceId : 3,
-        associatedDriverId : 4,
-        capacity : 4,
-        year : 2005,
-        color : 'blue',
-        category : 'Sedan',
-        operatorId : 1,
-        make : '2005',
-        hasAC : true,
-        isAssigned : true,
-        statesPermitMap : 4
-    },{
-        id : 101,
-        registrationNumber : 'KA08 HX4578',
-        model : 'Benz',
-        associatedDeviceId : 6,
-        associatedDriverId : 3,
-        capacity : 4,
-        year : 2009,
-        color : 'blue',
-        category : 'Sedan',
-        operatorId : 1,
-        make : '2008',
-        hasAC : true,
-        isAssigned : true,
-        statesPermitMap : 4
-    }];
+
+    constructor(
+        private commonUtilsService : CommonUtilsService,
+        private cookieService : CookieService
+    ){}
     getCars(){
-        //return Promise.resolve(CARS);
-        return this.cars;
+        var url = this.commonUtilsService.apiUrl + 'car/getAll/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, {},'GET');
     }
 
-    getCar(id:Number){
-        return this.cars.find(c=> c.id===id);
+    getCar(car_reg_id){
+        var url = this.commonUtilsService.apiUrl + 'car/get/?access_token='+
+            this.cookieService.get('access_token') + '&car_reg_id='+car_reg_id;
+        return this.commonUtilsService.ajax(url, {},'GET');
     }
 
     createCar(car:Car){
-        this.cars.push(car);
+        var url = this.commonUtilsService.apiUrl + 'car/create/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, car,'POST');
     }
 
     saveCar(car:Car){
-        this.cars = this.cars.filter(c=>c.id!==car.id);
-        this.createCar(car);
+        var url = this.commonUtilsService.apiUrl + 'car/update/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, car,'POST');
+    }
+
+    deleteCar(car_reg_id){
+        var url = this.commonUtilsService.apiUrl + 'car/delete/?access_token='+
+            this.cookieService.get('access_token')+'&car_reg_id='+car_reg_id;
+        return this.commonUtilsService.ajax(url, {},'DELETE');
     }
 }

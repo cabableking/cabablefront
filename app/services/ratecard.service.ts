@@ -1,30 +1,12 @@
 import {Injectable} from "@angular/core";
 import {Ratecard} from "../models/ratecard";
 import {CommonUtilsService} from "./common-utils.service";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Injectable()
 export class RatecardService{
-    ratecards : Ratecard[] = [{
-        id : 100,
-        name : 'Default Rate Card 1',
-        type : CommonUtilsService.rateCardTypes.INTERNORM,
-        baseFare : '50',
-        ratePerKM : '10',
-        ratePerMinute: '6',
-        inclusiveDistance: '5',
-        otherCharges: '0',
-        driverDA: '0',
-        driverDATimingsFrom: '10',
-        driverDATimingsFromAMPM: 'AM',
-        driverDATimingsTo: '08',
-        driverDATimingsToAMPM: 'PM',
-        airportPickup: '',
-        airportDrop: '',
-        roundTrip: '',
-        ratePerExtraKM: '',
-        ragePerWaitMinute: ''
-    }];
-    plans = {
+    ratecards : Ratecard[] = [];
+    /*plans = {
             "INTERNORM" : {
                 "planname":"INTERNORM",
                 "fields":[
@@ -76,9 +58,16 @@ export class RatecardService{
                     {"field": "ragePerWaitMinute", "desc": "Waiting Charges/minute", "type": "String"}
                 ]
             }
-    };
+    };*/
 
-    getRatecards(){
+    plans = [];
+
+    constructor(
+        private commonUtilsService : CommonUtilsService,
+        private cookieService : CookieService
+    ){}
+
+    /*getRatecards(){
         return this.ratecards;
     }
 
@@ -98,8 +87,50 @@ export class RatecardService{
     getRatecardTypes(){
         return Object.keys(this.plans);
     }
+    */
 
     getRatecardFields(rateCardType){
-        return this.plans[rateCardType]['fields'].map(f=>f.field);
+        var url = this.commonUtilsService.apiUrl + 'ratecard/plans/?access_token='+this.cookieService.get('access_token')+'&plantype='+rateCardType;
+        return this.commonUtilsService.ajax(url, {},'GET');
+        //return this.plans[rateCardType]['fields'].map(f=>f.field);
+    }
+
+
+
+    getPlans(){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/plans/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, {},'GET');
+    }
+
+    getPlanNames(){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/plannames/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, {},'GET');
+    }
+
+    getRatecards(){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/getAll/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, {},'GET');
+    }
+
+    getRatecard(ratecard_license_no){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/get/?access_token='+
+            this.cookieService.get('access_token') + '&ratecard_license_no='+ratecard_license_no;
+        return this.commonUtilsService.ajax(url, {},'GET');
+    }
+
+    createRatecard(ratecard:Ratecard){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/create/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, ratecard,'POST');
+    }
+
+    saveRatecard(ratecard:Ratecard){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/update/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, ratecard,'POST');
+    }
+
+    deleteRatecard(ratecard_license_no){
+        var url = this.commonUtilsService.apiUrl + 'ratecard/delete/?access_token='+
+            this.cookieService.get('access_token')+'&ratecard_license_no='+ratecard_license_no;
+        return this.commonUtilsService.ajax(url, {},'DELETE');
     }
 }

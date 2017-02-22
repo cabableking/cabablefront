@@ -1,35 +1,39 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 import {Driver} from "../models/driver";
+import {CommonUtilsService} from "./common-utils.service";
+import {CookieService} from "angular2-cookie/services/cookies.service";
 
 @Injectable()
 export class DriverService{
-    drivers : Driver[] = [{
-        id : 100,
-        name : 'Vikas Singh',
-        address : 'HBR Layout, Bangalore',
-        licenceNumber : 'DSI4638303',
-        isAssigned : false
-    },{
-        id : 101,
-        name : 'Ajay Singh',
-        address : 'HBR Layout, Bangalore',
-        licenceNumber : 'DSI4638494',
-        isAssigned : false
-    }];
+
+    constructor(
+        private commonUtilsService : CommonUtilsService,
+        private cookieService : CookieService
+    ){}
     getDrivers(){
-        return this.drivers;
+        var url = this.commonUtilsService.apiUrl + 'driver/getAll/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, {},'GET');
     }
 
-    getDriver(id:Number){
-        return this.drivers.find(c=> c.id===id);
+    getDriver(driver_license_no){
+        var url = this.commonUtilsService.apiUrl + 'driver/get/?access_token='+
+            this.cookieService.get('access_token') + '&driver_license_no='+driver_license_no;
+        return this.commonUtilsService.ajax(url, {},'GET');
     }
 
     createDriver(driver:Driver){
-        this.drivers.push(driver);
+        var url = this.commonUtilsService.apiUrl + 'driver/create/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, driver,'POST');
     }
 
     saveDriver(driver:Driver){
-        this.drivers = this.drivers.filter(c=>c.id!==driver.id);
-        this.createDriver(driver);
+        var url = this.commonUtilsService.apiUrl + 'driver/update/?access_token='+this.cookieService.get('access_token');
+        return this.commonUtilsService.ajax(url, driver,'POST');
+    }
+
+    deleteDriver(driver_license_no){
+        var url = this.commonUtilsService.apiUrl + 'driver/delete/?access_token='+
+            this.cookieService.get('access_token')+'&driver_license_no='+driver_license_no;
+        return this.commonUtilsService.ajax(url, {},'DELETE');
     }
 }

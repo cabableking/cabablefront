@@ -19,16 +19,46 @@ import {DriverService} from "../services/driver.service";
           <div class="panel-body">
             <form (ngSubmit)="create()">
                 <div class="form-group">
-                    <label for="name">name:</label>
-                    <input type="text" class="form-control" id="name" [(ngModel)]="driver.name" name="name" required="required">
+                    <label for="photo">Upload Photo</label>
+                    <input type="text" class="form-control" id="photo" [(ngModel)]="driver.photo" name="photo" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="text" class="form-control" id="age" [(ngModel)]="driver.age" name="age" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" id="first_name" [(ngModel)]="driver.first_name" name="first_name" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" [(ngModel)]="driver.last_name" name="last_name" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="driver_license_no">Licence Number</label>
+                    <input type="text" class="form-control" id="driver_license_no" [(ngModel)]="driver.driver_license_no" name="driver_license_no" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="license_photo">Licence Photo</label>
+                    <input type="text" class="form-control" id="license_photo" [(ngModel)]="driver.license_photo" name="license_photo" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender </label>
+                    <label class="radio-inline"><input type="radio" id="gender" name="gender" value="M"  [(ngModel)]="driver.gender">Male</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="F"  [(ngModel)]="driver.gender">Female</label>
+                    <label class="radio-inline"><input type="radio" name="gender" value="O"  [(ngModel)]="driver.gender">Others</label>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Rating</label>
+                    <input type="text" class="form-control" id="rating" [(ngModel)]="driver.rating" name="rating" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="contact_num">Contact Number</label>
+                    <input type="text" class="form-control" id="contact_num" [(ngModel)]="driver.contact_num" name="contact_num" required="required">
                 </div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" class="form-control" id="address" [(ngModel)]="driver.address" name="address" required="required">
-                </div>
-                <div class="form-group">
-                    <label for="licenceNumber">Licence Number</label>
-                    <input type="text" class="form-control" id="licenceNumber" [(ngModel)]="driver.licenceNumber" name="licenceNumber" required="required">
+                    <input type="text" class="form-control" id="address" [(ngModel)]="driver.address" name="address">
                 </div>
                 <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
@@ -41,11 +71,20 @@ import {DriverService} from "../services/driver.service";
 
 export class CreateDriverComponent implements OnInit{
     driver :Driver = {
-        id : Math.ceil(Math.random()*1000),
-        name : '',
-        address : '',
-        licenceNumber : '',
-        isAssigned : false
+        photo: '',
+        age:0,
+        created_on: new Date(),
+        first_name:'',
+        last_name:'',
+        driver_license_no:'',
+        license_photo: '',
+        gender: '',
+        rating:'',
+        updated_on: new Date(),
+        contact_num: '',
+        address: '',
+        is_assigned: false,
+        operator_id: 14
     };
     successMsg:String = '';
     onboardingPage:Boolean = false;

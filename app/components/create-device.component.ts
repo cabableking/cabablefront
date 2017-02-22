@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Device} from "../models/device";
 import {DeviceService} from "../services/device.service";
+import {CommonUtilsService} from "../services/common-utils.service";
 
 @Component({
     selector: 'create-device',
@@ -23,8 +24,24 @@ import {DeviceService} from "../services/device.service";
                     <input type="text" class="form-control" id="imei" [(ngModel)]="device.imei" name="imei" required="required">
                 </div>
                 <div class="form-group">
-                    <label for="model">Model</label>
-                    <input type="text" class="form-control" id="model" [(ngModel)]="device.model" name="model" required="required">
+                    <label for="make">Make: </label>
+                    <input type="text" class="form-control" id="make" [(ngModel)]="device.device_make" name="make" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="model">Model: </label>
+                    <input type="text" class="form-control" id="model" [(ngModel)]="device.device_model" name="model" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="os">Operating System Version: </label>
+                    <input type="text" class="form-control" id="os" [(ngModel)]="device.os_version" name="os" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="text" class="form-control" id="phone_number" [(ngModel)]="device.device_phone_number" name="phone_number" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="network_provider">Network Provider:</label>
+                    <input type="text" class="form-control" id="network_provider" [(ngModel)]="device.network_provider" name="network_provider" required="required">
                 </div>
                 <span [hidden]="onboardingPage"><back-button></back-button></span>
                 <button (click)="create()" class="btn btn-default" type="submit">Create</button>
@@ -37,21 +54,35 @@ import {DeviceService} from "../services/device.service";
 
 export class CreateDeviceComponent implements OnInit{
     device :Device = {
-        id : Math.ceil(Math.random()*1000),
-        imei : '',
-        model : '',
-        isAssigned : false
+        imei:'',
+        device_make: '',
+        device_model: '',
+        os_version:'',
+        device_phone_number: '',
+        network_provider: '',
+        created_on: new Date(),
+        last_updated_on: new Date(),
+        is_assigned: false,
+        operator_id: 14
     };
     successMsg:String = '';
+    errorMsg:String = '';
     onboardingPage:Boolean = false;
     constructor(private deviceService : DeviceService, private _router : Router){}
     create(){
-        this.deviceService.createDevice(this.device);
-        if(this.onboardingPage){
-            this.successMsg = 'New device added successfully! Please choose it from the list';
-            return false;
-        }
-        this._router.navigate(['/device/list']);
+        this.deviceService.createDevice(this.device).then(resp => {
+            if(resp.status==200){
+                if(this.onboardingPage){
+                    this.successMsg = 'New device added successfully! Please choose it from the list';
+                    return false;
+                }else{
+                    CommonUtilsService.flashMessage = 'Device added successfully!';
+                }
+                this._router.navigate(['/device/list']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
         return false;
     }
     ngOnInit(){

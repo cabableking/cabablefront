@@ -56,6 +56,6 @@ export class OnboardingDeviceComponent implements OnInit{
 
     ngOnInit(): void{
         this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
-        this.devices = this.deviceService.getDevices();
+        //this.devices = this.deviceService.getDevices();
     }
 }

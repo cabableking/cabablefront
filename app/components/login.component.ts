@@ -4,6 +4,8 @@ import {User} from "../models/user";
 import {EventEmitterService} from "../services/event-emitter.service";
 import {OperatorService} from "../services/operator.service";
 import {Router} from "@angular/router";
+import {CommonUtilsService} from "../services/common-utils.service";
+import {CookieService} from "angular2-cookie/core";
 
 @Component({
     selector: 'login-form',
@@ -25,7 +27,7 @@ import {Router} from "@angular/router";
                 <form (ngSubmit)="login()">
                     <div class="form-group">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" required="required">
+                        <input type="email" class="form-control" id="email" [(ngModel)]="user.username" name="email" required="required">
                     </div>
                     <div class="form-group">
                         <label for="password">Password:</label>
@@ -40,12 +42,13 @@ import {Router} from "@angular/router";
 })
 
 export class LoginComponent {
-    public user:User = {email:'',password:''};
+    public user:User = {username:'',password:''};
     public errorMsg = '';
     public userRole = 'Operator';
 
-    constructor(private _service:AuthenticationService,
-                private _eventEmitterService : EventEmitterService, private operatorService : OperatorService, private _router: Router) {
+    constructor(private _service:AuthenticationService,private commonUtilsService : CommonUtilsService,
+                private _eventEmitterService : EventEmitterService, private operatorService : OperatorService,
+                private _router: Router, private cookieService : CookieService) {
         this._eventEmitterService.loginPage.emit(true);
     }
 
@@ -57,12 +60,27 @@ export class LoginComponent {
                 this._eventEmitterService.showNavBar.emit(true);
             }
         }else{
-            if(this.operatorService.operatorExists(this.user)){
+            /*if(this.operatorService.operatorExists(this.user)){
                 this._eventEmitterService.showNavBar.emit(true);
                 this._router.navigate(['/operator/home']);
             }else{
                 this.errorMsg = 'Invalid Credentials!';
-            }
+            }*/
+            var url = this.commonUtilsService.apiUrl + 'auth/login/';
+            this.commonUtilsService.ajax(url, this.user,'POST').then(res => {
+                if(res){
+                    let data = JSON.parse(res['_body']);
+                    if(res.status==200){
+                        this.cookieService.put('access_token',data['access_token']);
+                        this.cookieService.put('refresh_token',data['refresh_token']);
+                        this.cookieService.put('scope',data['scope']);
+                        //console.log(this.cookieService.get('scope'));
+                        this._router.navigate(['/operator/home']);
+                    }else{
+                        this.errorMsg = data.message;
+                    }
+                }
+            });
         }
         return false;
     }

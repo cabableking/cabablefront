@@ -56,6 +56,6 @@ export class OnboardingDriverComponent implements OnInit{
 
     ngOnInit(): void{
         this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
-        this.drivers = this.driverService.getDrivers();
+        //this.drivers = this.driverService.getDrivers();
     }
 }

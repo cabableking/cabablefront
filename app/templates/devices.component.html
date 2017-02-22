@@ -3,23 +3,23 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>IMEI</th>
-            <th>Model</th>
-            <th>Assigned</th>
+            <th>Make</th>
+            <th>Phone Number</th>
+            <th>Network Provider</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let device of devices">
-            <td>{{device.id}}</td>
             <td>{{device.imei}}</td>
-            <td>{{device.model}}</td>
-            <td>{{device.isAssigned}}</td>
+            <td>{{device.device_make}}</td>
+            <td>{{device.device_phone_number}}</td>
+            <td>{{device.network_provider}}</td>
             <td>
-                <a class="btn btn-default" [routerLink]="['/device/view',device.id]">Details</a>
-                <a class="btn btn-primary" [routerLink]="['/device/edit', device.id]">Edit</a>
-                <a class="btn btn-danger">Delete</a>
+                <a class="btn btn-default" [routerLink]="['/device/view',device.imei]">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/device/edit', device.imei]">Edit</a>
+                <a class="btn btn-danger" (click)="deleteDevice(device.imei)">Delete</a>
             </td>
         </tr>
         </tbody>

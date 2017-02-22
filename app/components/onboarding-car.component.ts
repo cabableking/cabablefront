@@ -21,7 +21,7 @@ import {CarService} from "../services/car.service";
                     <h3>Select from existing cars : </h3>
                     <div class="margin-top30">
                         <select [(ngModel)]="selectedCarId" class="width100 height30">
-                          <option *ngFor="let c of cars" [ngValue]="c.id">{{c.registrationNumber}}</option>
+                          <option *ngFor="let c of cars" [ngValue]="c.car_reg_id">{{c.car_reg_id}}</option>
                         </select>
                     </div>
                     <button (click)="addCar()" class="btn btn-default width100 margin-top20 margin-bottom30" type="submit">Add Car</button>
@@ -47,7 +47,7 @@ export class OnboardingCarComponent implements OnInit{
     onboarding : Onboarding;
     selectedCarId : null;
     cars : Car[];
-
+    errorMsg = '';
     addCar(){
         this.onboardingService.addCarToOnboarding(this.onboarding, this.selectedCarId);
         //this._router.navigate(['/onboarding/finish']);
@@ -57,6 +57,12 @@ export class OnboardingCarComponent implements OnInit{
 
     ngOnInit(): void{
         this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
-        this.cars = this.carService.getCars();
+        this.carService.getCars().then(resp => {
+            if(resp.status==200){
+                this.cars = JSON.parse(resp['_body']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {Car} from "../models/car";
 import {CarService} from "../services/car.service";
+import {CommonUtilsService} from "../services/common-utils.service";
 
 @Component({
     selector: 'create-car',
@@ -20,7 +21,13 @@ import {CarService} from "../services/car.service";
             <form (ngSubmit)="create()">
                 <div class="form-group">
                     <label for="regNum">Registration Number:</label>
-                    <input type="text" class="form-control" id="regNum" [(ngModel)]="car.registrationNumber" name="regNum" required="required">
+                    <input type="text" class="form-control" id="regNum" [(ngModel)]="car.car_reg_id" name="regNum" required="required">
+                </div>
+                <div class="form-group">
+                    <label for="type">Parent Category</label>
+                    <select [(ngModel)]="car.parent_category" name="type">
+                      <option *ngFor="let c of carParentCategories" [ngValue]="c">{{c}}</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="model">Model</label>
@@ -53,31 +60,38 @@ import {CarService} from "../services/car.service";
 
 export class CreateCarComponent implements OnInit{
     car :Car = {
-        id : Math.ceil(Math.random()*1000),
-        registrationNumber : '',
+        car_reg_id : '',
         model : '',
-        associatedDeviceId : 0,
-        associatedDriverId : 0,
         capacity : 0,
         year : 0,
         color : '',
         category : '',
-        operatorId : 0,
+        operator_id : 14,
         make : '',
-        hasAC : false,
-        isAssigned : false,
-        statesPermitMap : 0
+        has_ac : false,
+        is_assigned : false,
+        states_permit_map : 0,
+        parent_category : ''
     };
     successMsg:String = '';
+    errorMsg:String = '';
     onboardingPage:Boolean = false;
+    carParentCategories = CommonUtilsService.carParentCategories;
     constructor(private carService : CarService, private _router : Router){}
     create(){
-        this.carService.createCar(this.car);
-        if(this.onboardingPage){
-            this.successMsg = 'New car added successfully! Please choose it from the list';
-            return false;
-        }
-        this._router.navigate(['/car/list']);
+        this.carService.createCar(this.car).then(resp => {
+            if(resp.status==200){
+                if(this.onboardingPage){
+                    this.successMsg = 'New car added successfully! Please choose it from the list';
+                    return false;
+                }else{
+                    CommonUtilsService.flashMessage = 'Car added successfully!';
+                }
+                this._router.navigate(['/car/list']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
         return false;
     }
     ngOnInit(){

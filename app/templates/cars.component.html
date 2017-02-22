@@ -1,30 +1,34 @@
+<div *ngIf="errorMsg">
+    <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+</div>
+<div *ngIf="successMsg">
+    <div class="alert alert-success" role="alert">{{successMsg}}</div>
+</div>
 <div class="panel panel-primary">
     <div class="panel-heading">Cars</div>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
             <th>Registration Number</th>
             <th>Model</th>
-            <th>Associated Device Id</th>
-            <th>Associated Driver Id</th>
+            <th>Make</th>
+            <th>Assigned</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let car of cars">
-            <td>{{car.id}}</td>
-            <td>{{car.registrationNumber}}</td>
+            <td>{{car.car_reg_id}}</td>
             <td>{{car.model}}</td>
-            <td>{{car.associatedDeviceId}}</td>
-            <td>{{car.associatedDriverId}}</td>
+            <td>{{car.make}}</td>
+            <td>{{car.is_assigned?'Yes':'No'}}</td>
             <td>
-                <a class="btn btn-default" [routerLink]="['/car/view',car.id]">Details</a>
-                <a class="btn btn-primary" [routerLink]="['/car/edit', car.id]">Edit</a>
-                <a class="btn btn-danger">Delete</a>
+                <a class="btn btn-default" [routerLink]="['/car/view',car.car_reg_id]">Details</a>
+                <a class="btn btn-primary" [routerLink]="['/car/edit', car.car_reg_id]">Edit</a>
+                <a class="btn btn-danger" (click)="deleteCar(car.car_reg_id)">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-<back-button></back-button>
+<!--<back-button></back-button>-->
