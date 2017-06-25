@@ -45,18 +45,29 @@ export class OnboardingCarComponent implements OnInit{
     constructor(private onboardingService : OnboardingService, private _router : Router,
                 private route : ActivatedRoute, private carService : CarService){}
     onboarding : Onboarding;
+    onboardingId : Number;
     selectedCarId : null;
     cars : Car[];
     errorMsg = '';
     addCar(){
-        this.onboardingService.addCarToOnboarding(this.onboarding, this.selectedCarId);
+        //this.onboardingService.addCarToOnboarding(this.onboarding, this.selectedCarId);
         //this._router.navigate(['/onboarding/finish']);
-        this._router.navigate(['/onboarding/ratecard',this.onboarding.id]);
+        //this._router.navigate(['/onboarding/ratecard',this.onboarding.id]);
+
+        this.onboardingService.saveOnboarding({id: this.onboardingId, car_reg_id : this.selectedCarId}).then(resp => {
+            if(resp.status==200){
+                var onboarding = JSON.parse(resp['_body']);
+                if(onboarding && onboarding.id){
+                    this._router.navigate(['/onboarding/ratecard',onboarding.id]);
+                }
+
+            }
+        });
         return false;
     }
 
     ngOnInit(): void{
-        this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
+        this.route.params.subscribe(p=>this.onboardingId=(+p['id']));
         this.carService.getCars().then(resp => {
             if(resp.status==200){
                 this.cars = JSON.parse(resp['_body']);
@@ -64,5 +75,6 @@ export class OnboardingCarComponent implements OnInit{
                 this.errorMsg = resp['message'];
             }
         });
+
     }
 }

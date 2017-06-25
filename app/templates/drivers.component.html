@@ -1,3 +1,9 @@
+<div *ngIf="errorMsg">
+    <div class="alert alert-danger" role="alert">{{errorMsg}}</div>
+</div>
+<div *ngIf="successMsg">
+    <div class="alert alert-success" role="alert">{{successMsg}}</div>
+</div>
 <div class="panel panel-primary">
     <div class="panel-heading">Drivers</div>
     <table class="table table-striped">
@@ -25,4 +31,6 @@
         </tbody>
     </table>
 </div>
+<!--
 <back-button></back-button>
+-->

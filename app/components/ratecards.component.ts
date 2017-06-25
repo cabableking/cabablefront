@@ -14,7 +14,11 @@ export class RatecardsComponent implements OnInit {
     constructor(private ratecardService: RatecardService) {}
 
     getRatecards(): void {
-        //this.ratecards = this.ratecardService.getRatecards();
+        this.ratecardService.getRatecards().then(resp => {
+            if(resp.status==200){
+                this.ratecards = JSON.parse(resp['_body']);
+            }
+        });
     }
 
     ngOnInit(): void {

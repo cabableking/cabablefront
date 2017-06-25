@@ -90,12 +90,15 @@ export class CreateDriverComponent implements OnInit{
     onboardingPage:Boolean = false;
     constructor(private driverService : DriverService, private _router : Router){}
     create(){
-        this.driverService.createDriver(this.driver);
-        if(this.onboardingPage){
-            this.successMsg = 'New driver added successfully! Please choose it from the list';
-            return false;
-        }
-        this._router.navigate(['/driver/list']);
+        this.driverService.createDriver(this.driver).then(resp => {
+            if(resp.status==200){
+                if(this.onboardingPage){
+                    this.successMsg = 'New driver added successfully! Please choose it from the list';
+                    return false;
+                }
+                this._router.navigate(['/driver/list']);
+            }
+        });
         return false;
     }
     ngOnInit(){

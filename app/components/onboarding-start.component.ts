@@ -24,19 +24,26 @@ import {Onboarding} from "../models/onboarding";
 
 export class OnboardingStartComponent{
     onboarding : Onboarding = {
-        id : Math.ceil(Math.random()*1000),
-        operatorId : 0,
-        status : 0,
-        associatedCarId : 0,
-        associatedDeviceId : 0,
-        associatedDriverId : 0,
-        associatedRatecardId : 0
+        id : 0,
+        driver_license_no : '',
+        car_reg_id : '',
+        device_imei : '',
+        is_complete : false
     };
 
     constructor(private onboardingService : OnboardingService, private _router : Router){}
     start(){
-        this.onboardingService.createOnboarding(this.onboarding);
-        this._router.navigate(['/onboarding/device',this.onboarding.id]);
+        this.onboardingService.createOnboarding(this.onboarding).then(resp => {
+            if(resp.status==200){
+                var onboardingId = JSON.parse(resp['_body']);
+                if(onboardingId){
+                    this.onboarding.id = onboardingId;
+                    this._router.navigate(['/onboarding/device',this.onboarding.id]);
+                }
+
+            }
+        });
+
         return false;
     }
 }

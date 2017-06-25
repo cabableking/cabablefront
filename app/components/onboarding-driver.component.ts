@@ -21,7 +21,7 @@ import {DriverService} from "../services/driver.service";
                     <h3>Select from existing drivers : </h3>
                     <div class="margin-top30">
                         <select [(ngModel)]="selectedDriverId" class="width100 height30">
-                          <option *ngFor="let c of drivers" [ngValue]="c.id">{{c.name}}</option>
+                          <option *ngFor="let c of drivers" [ngValue]="c.driver_license_no">{{c.first_name}}</option>
                         </select>
                     </div>
                     <button (click)="addDriver()" class="btn btn-default width100 margin-top20 margin-bottom30" type="submit">Add Driver</button>
@@ -45,17 +45,35 @@ export class OnboardingDriverComponent implements OnInit{
     constructor(private onboardingService : OnboardingService, private _router : Router,
                 private route : ActivatedRoute, private driverService : DriverService){}
     onboarding : Onboarding;
+    onboardingId : Number;
     selectedDriverId : null;
     drivers : Driver[];
 
     addDriver(){
-        this.onboardingService.addDriverToOnboarding(this.onboarding, this.selectedDriverId);
-        this._router.navigate(['/onboarding/car',this.onboarding.id]);
+        this.onboardingService.saveOnboarding({id: this.onboardingId, driver_license_no : this.selectedDriverId}).then(resp => {
+            if(resp.status==200){
+                var onboarding = JSON.parse(resp['_body']);
+                if(onboarding && onboarding.id){
+                    this._router.navigate(['/onboarding/car',onboarding.id]);
+                }
+
+            }
+        });
+
+
+        //this.onboardingService.addDriverToOnboarding(this.onboarding, this.selectedDriverId);
+        //this._router.navigate(['/onboarding/car',this.onboarding.id]);
         return false;
     }
 
     ngOnInit(): void{
-        this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
+        this.route.params.subscribe(p=>this.onboardingId=(+p['id']));
+        this.driverService.getDrivers().then(resp => {
+            if(resp.status==200){
+                this.drivers = JSON.parse(resp['_body']);
+            }
+        });
+        //this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
         //this.drivers = this.driverService.getDrivers();
     }
 }

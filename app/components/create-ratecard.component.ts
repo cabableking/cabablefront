@@ -187,12 +187,15 @@ export class CreateRatecardComponent implements OnInit{
     timeHours = CommonUtilsService.timeHours;
     constructor(private ratecardService : RatecardService, private _router : Router){}
     create(){
-        this.ratecardService.createRatecard(this.ratecard);
-        if(this.onboardingPage){
-            this.successMsg = 'New rate card added successfully! Please choose it from the list';
-            return false;
-        }
-        this._router.navigate(['/ratecard/list']);
+        this.ratecardService.createRatecard(this.ratecard, this.rateCardSelectedFields, this.selectedRateCardType).then(resp => {
+            if(resp.status==200){
+                if(this.onboardingPage){
+                    this.successMsg = 'New rate card added successfully! Please choose it from the list';
+                    return false;
+                }
+                this._router.navigate(['/ratecard/list']);
+            }
+        });
         return false;
     }
 

@@ -21,7 +21,7 @@ import {DeviceService} from "../services/device.service";
                     <h3>Select from existing devices : </h3>
                     <div class="margin-top30">
                         <select [(ngModel)]="selectedDeviceId" class="width100 height30">
-                          <option *ngFor="let c of devices" [ngValue]="c.id">{{c.imei}}</option>
+                          <option *ngFor="let c of devices" [ngValue]="c.imei">{{c.imei}}</option>
                         </select>
                     </div>
                     <button (click)="addDevice()" class="btn btn-default width100 margin-top20 margin-bottom30" type="submit">Add Device</button>
@@ -45,17 +45,32 @@ export class OnboardingDeviceComponent implements OnInit{
     constructor(private onboardingService : OnboardingService, private _router : Router,
                 private route : ActivatedRoute, private deviceService : DeviceService){}
     onboarding : Onboarding;
+    onboardingId : Number;
     selectedDeviceId : null;
     devices : Device[];
 
     addDevice(){
-        this.onboardingService.addDeviceToOnboarding(this.onboarding, this.selectedDeviceId);
-        this._router.navigate(['/onboarding/driver',this.onboarding.id]);
+        this.onboardingService.saveOnboarding({id: this.onboardingId, device_imei : this.selectedDeviceId}).then(resp => {
+            if(resp.status==200){
+                var onboarding = JSON.parse(resp['_body']);
+                if(onboarding && onboarding.id){
+                    this._router.navigate(['/onboarding/driver',onboarding.id]);
+                }
+
+            }
+        });
+
+        //this.onboardingService.addDeviceToOnboarding(this.onboarding, this.selectedDeviceId);
+        //this._router.navigate(['/onboarding/driver',this.onboarding.id]);
         return false;
     }
 
     ngOnInit(): void{
-        this.route.params.subscribe(p=>this.onboarding=this.onboardingService.getOnboarding(+p['id']));
-        //this.devices = this.deviceService.getDevices();
+        this.route.params.subscribe(p=>this.onboardingId=(+p['id']));
+        this.deviceService.getDevices().then(resp => {
+            if(resp.status==200){
+                this.devices = JSON.parse(resp['_body']);
+            }
+        });
     }
 }
