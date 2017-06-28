@@ -33,8 +33,8 @@ export class CarsComponent implements OnInit {
     deleteCar(car_reg_id){
         this.carService.deleteCar(car_reg_id).then(resp => {
             if(resp.status==200){
-                CommonUtilsService.flashMessage = 'Car deleted successfully!';
-                this._router.navigate(['/car/list']);
+                this.successMsg = 'Car deleted successfully!';
+                this.cars = this.cars.filter(function(el){return el.car_reg_id !== car_reg_id});
             }else{
                 this.errorMsg = resp['message'];
             }

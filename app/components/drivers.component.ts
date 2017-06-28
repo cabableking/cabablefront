@@ -33,8 +33,8 @@ export class DriversComponent implements OnInit {
     deleteDriver(license_num){
         this.driverService.deleteDriver(license_num).then(resp => {
             if(resp.status==200){
-                CommonUtilsService.flashMessage = 'Driver deleted successfully!';
-                this._router.navigate(['/driver/list']);
+                this.successMsg = 'Driver deleted successfully!';
+                this.drivers = this.drivers.filter(function(el){return el.driver_license_no !== license_num});
             }else{
                 this.errorMsg = resp['message'];
             }

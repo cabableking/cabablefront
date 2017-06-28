@@ -33,8 +33,8 @@ export class DevicesComponent implements OnInit {
     deleteDevice(imei){
         this.deviceService.deleteDevice(imei).then(resp => {
             if(resp.status==200){
-                CommonUtilsService.flashMessage = 'Device deleted successfully!';
-                this._router.navigate(['/device/list']);
+                this.successMsg = 'Device deleted successfully!';
+                this.devices = this.devices.filter(function(el){return el.imei !== imei});
             }else{
                 this.errorMsg = resp['message'];
             }
