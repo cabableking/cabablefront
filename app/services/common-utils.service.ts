@@ -42,8 +42,8 @@ export class CommonUtilsService{
     }
 
     private handleError(error: any): Promise<any> {
-        //console.error('An error occurred', error); // for demo purposes only
-        return Promise.resolve(error);
+        if(error.status == 401) window.location.href = '/login';
+        return //Promise.resolve(error);
     }
 
     constructor(private http:Http){}
