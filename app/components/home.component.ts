@@ -1,5 +1,6 @@
 import {Component,OnInit} from '@angular/core';
 import {AuthenticationService} from '../services/authentication.service';
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'home',
@@ -14,7 +15,7 @@ import {AuthenticationService} from '../services/authentication.service';
               <div class="panel-body">               
                     <a class="btn btn-primary" routerLink="/operator/create">Create Operator</a>
                     <a class="btn btn-primary" routerLink="/operator/list">View All Operators</a>
-                    <a class="btn btn-primary" (click)="logout()" href="#">logout</a>
+                    <a class="btn btn-primary" (click)="logout()" href="javascript:;">logout</a>
               </div>
             </div>  
     	`
@@ -22,15 +23,23 @@ import {AuthenticationService} from '../services/authentication.service';
 
 export class HomeComponent implements OnInit{
 
+    errorMsg = '';
     constructor(
-        private _service:AuthenticationService){}
+        private authService:AuthenticationService,
+        private router : Router
+    ){}
 
     ngOnInit(){
-        this._service.checkCredentials();
+        this.authService.checkCredentials();
     }
 
     logout() {
-        this._service.logout();
-        return false;
+        this.authService.logout().then(resp => {
+            if(resp.status==200){
+                this.router.navigate(['/login']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
     }
 }

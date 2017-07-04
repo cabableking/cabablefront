@@ -1,5 +1,7 @@
 import {Component} from "@angular/core";
 import {EventEmitterService} from "../services/event-emitter.service";
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../services/authentication.service";
 @Component({
     selector : 'nav-bar',
     template : `
@@ -26,7 +28,7 @@ import {EventEmitterService} from "../services/event-emitter.service";
                               </a>
                             </li>
                             <li><a href="javascript:;">Help</a></li>
-                            <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                            <li (click)="logout()"><a href="javascript:;"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                           </ul>
                         </li>
         
@@ -119,7 +121,18 @@ import {EventEmitterService} from "../services/event-emitter.service";
 
 export class NavbarComponent{
     showNavBar : boolean = false;
-    constructor(private _eventEmitterService : EventEmitterService){
+    errorMsg : String;
+    constructor(private _eventEmitterService : EventEmitterService, private authService : AuthenticationService, private router : Router){
         this._eventEmitterService.showNavBar.subscribe(mode=>this.showNavBar=mode);
+    }
+
+    logout(){
+        this.authService.logout().then(resp => {
+            if(resp.status==200){
+                this.router.navigate(['/login']);
+            }else{
+                this.errorMsg = resp['message'];
+            }
+        });
     }
 }
